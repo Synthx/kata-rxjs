@@ -12,12 +12,12 @@
     </mat-select>
   </mat-form-field>
 </form>
+<div class="text-base text-gray-900 mx-6 mb-6">
+  {{ length$ | async }} product(s) displayed
+</div>
 <div class="px-6 relative grid grid-cols-4 gap-6">
   <div class="absolute inset-0 flex z-10 bg-white/50" *ngIf="loading">
     <mat-spinner class="my-10 mx-auto"></mat-spinner>
-  </div>
-  <div class="text-base text-gray-900 mb-6">
-    {{ length$ }} product(s) displayed
   </div>
   <div class="group relative" *ngFor="let product of products$ | async">
     <div

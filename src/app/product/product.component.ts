@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {map, Observable, of, tap} from "rxjs";
+import {map, Observable, of, share, shareReplay, tap} from "rxjs";
 import {Product} from "../model";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ProductService} from "../product.service";
