@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {map, Observable, of} from "rxjs";
+import {map, Observable, of, tap} from "rxjs";
 import {Product} from "../model";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ProductService} from "../product.service";
@@ -39,7 +39,11 @@ export class ProductComponent implements OnInit {
     const {keyword, size} = this.searchForm.value;
 
     this.loading = true;
-    // operators to use : tap, map
-    this.products$ = this.productService.findAll(size, keyword).pipe(map(page => page.content));
+    this.products$ = this.productService.findAll(size, keyword).pipe(
+      map(page => page.content),
+      tap(() => {
+        this.loading = false;
+      }),
+    );
   }
 }
