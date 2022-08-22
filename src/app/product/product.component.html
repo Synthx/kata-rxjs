@@ -1,0 +1,41 @@
+<form class="flex items-center p-6" [formGroup]="searchForm">
+  <mat-form-field class="flex-1 mr-6">
+    <mat-label>Keyword</mat-label>
+    <input matInput type="search" formControlName="keyword">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Size</mat-label>
+    <mat-select formControlName="size">
+      <mat-option [value]="25">25</mat-option>
+      <mat-option [value]="50">50</mat-option>
+      <mat-option [value]="100">100</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+<div class="px-6 relative grid grid-cols-4 gap-6">
+  <div class="absolute inset-0 flex z-10 bg-white/50" *ngIf="loading">
+    <mat-spinner class="my-10 mx-auto"></mat-spinner>
+  </div>
+  <div class="text-base text-gray-900 mb-6">
+    {{ length$ }} product(s) displayed
+  </div>
+  <div class="group relative" *ngFor="let product of products$ | async">
+    <div
+      class="w-full min-h-80 h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 aspect-none">
+      <img src="https://pictures.secondemain.kiabi.com/thumbnails/listing/{{ product.pictures[0].fileName }}"
+           class="w-full h-full object-center object-cover"
+           [alt]="product.label">
+    </div>
+    <div class="mt-4 flex justify-between">
+      <div class="flex flex-col items-start">
+        <h3>{{ product.label }}</h3>
+        <p class="mt-1 flex items-center text-sm text-gray-500">
+          {{ product.owner.nickname }}
+        </p>
+      </div>
+      <p class="text-sm font-medium text-gray-900">
+        {{ product.price | currency }}
+      </p>
+    </div>
+  </div>
+</div>
